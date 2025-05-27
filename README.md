@@ -1,16 +1,28 @@
 # dinahkissiowusu-s_project
+This repository provides a summary of how a data pipeline is loaded from a database (AdventureWorks2022) to a datawarehouse (SalesDW) using SSIS and SSMS.
 
 Customer Sales ETL Pipeline (SSIS + SSMS):
-1. Overview:
-This project is an end-to-end ETL pipeline built using SQL Server Integration Services (SSIS) to load a Customer Sales Data Warehouse (SalesDW) from the AdventureWorks sample database. ThE goal of the project is to create a centralised, cleaned dataset that is ready for analytical reporting on customer and sales performance.
 
-Source: AdventureWorks2022 (OLTP) database
 
-ETL Tool: SSIS (SQL Server Integration Services)
+# OVERVIEW :
+This project is an end-to-end ETL pipeline built using SQL Server Integration Services (SSIS) to load a Customer Sales Data Warehouse (SalesDW) from the AdventureWorks sample database. The goal of the project is to create a centralised, cleaned dataset that is ready for analytical reporting on customer and sales performance.
 
-Target: SalesDW (star schema) created in SQL Server Management Studio (SSMS) with one fact table and four (4) dimension table
 
-2. Features:
+# SOURCE :
+AdventureWorks2022 (OLTP) database
+
+
+# DESTINATION : 
+SalesDW
+
+# ETL Tool : 
+SSIS (SQL Server Integration Services)
+SSMS (Microsoft SQL Server)
+
+# Target :
+SalesDW (star schema) created in SQL Server Management Studio (SSMS) with one fact table and four (4) dimension table
+
+# Features :
 a. ETL pipeline using SSIS packages.
 
 b. SQL Script for raw data extraction to create dimension tables and in extracting key columns from different tables.
@@ -19,9 +31,9 @@ c. Data transformation logic implemented in SSIS Data Flow Tasks and SQL scripts
 
 d. Clean dimensional model with fact and dimension tables.
 
-3. ETL Process:
+# ETL Process :
 a. Extract
- Extract data from key AdventureWorks tables  such as:
+ Extract data from key AdventureWorks2022 tables  such as:
  
 ( Sales.SalesOrderHeader
  Sales.SalesOrderDetail
@@ -30,7 +42,9 @@ a. Extract
  Person.Person
  Sales.SalesTerritory) using joins to create dimension and fact tables.
 
- 4. Schemas:
+
+
+# Schemas :
 Dimension Tables:
 a. DimCustomer
  Sources: Sales.Customer, Person.Person, Person.EmailAddress, Person.PersonPhone,
@@ -47,6 +61,8 @@ Columns:
  CompanyName
  ModifiedDate
 
+
+# Process :
 i. First create DimCustomer table in SSMS:
 CREATE TABLE DimCustomer (
     CustomerKey INT IDENTITY(1,1) PRIMARY KEY,
@@ -253,11 +269,11 @@ CREATE TABLE FactSales (
     PRIMARY KEY (SalesOrderID, SalesOrderDetailID)
 );
 
-f. Data Warehouse Design:
+# Data Warehouse Design :
 Star Schema Includes:
 FactSales
 
-g. Transformations:
+# Transformations :
  Derived Column: Concatenate first name and last name, compute TotalPrice = UnitPrice
 * OrderQty.
  Data Conversion: Convert all data types incompatible with destination schema.
@@ -265,18 +281,18 @@ g. Transformations:
  SCD Type 1: Implement for DimCustomer using the Slowly Changing Dimension
 transformation.
 
-g. Loading:
+# Loading :
  Load into SalesDW tables.
  Load dimension table first, then the fact table.
 
-h. Prerequisites:
+# Prerequisites :
 i. SQL Server + SSMS (SQL Server Management Studio)
 
 ii. SSDT (SQL Server Data Tools) or Visual Studio with SSIS extension
 
 iii. AdventureWorks2022 (OLTP) database installed
 
-i. How to Run:
+# How to Run :
 Open the .dtsx package in SSDT or Visual Studio.
 
 Deploy and execute the SSIS package.
@@ -288,4 +304,4 @@ Customer segmentation and insights
 Data preparation for predictive modeling
 
 j. Author
-Your Name – @dinahgborglah
+ @dinahgborglah
